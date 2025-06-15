@@ -1,0 +1,35 @@
+name: CI Notificación ntfy.sh con C#
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-notify:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout del repositorio
+      uses: actions/checkout@v3
+
+    - name: Instalar .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x' 
+
+    - name: Restaurar dependencias
+      run: dotnet restore
+
+    - name: Compilar el proyecto
+      run: dotnet build --configuration Release
+
+    - name: Ejecutar el programa
+      run: dotnet run --project ./HolaMundoCSharp/HolaMundoCSharp.csproj
+
+    - name: Enviar notificación a ntfy.sh
+      run: |
+        curl -d "🚨 Se hizo push a la rama main del repositorio con C# 🚀" \
+        -H "Title: Actualización en Main" \
+        -H "Priority: 5" \
+        https://ntfy.sh/devops-itla
