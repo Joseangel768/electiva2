@@ -16,20 +16,20 @@ jobs:
     - name: Instalar .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x' 
+        dotnet-version: '8.0.x'
 
     - name: Restaurar dependencias
-      run: dotnet restore
+      run: dotnet restore ./HolaMundoCSharp/HolaMundoCSharp.csproj
 
     - name: Compilar el proyecto
-      run: dotnet build --configuration Release
+      run: dotnet build ./HolaMundoCSharp/HolaMundoCSharp.csproj --configuration Release
 
     - name: Ejecutar el programa
       run: dotnet run --project ./HolaMundoCSharp/HolaMundoCSharp.csproj
 
     - name: Enviar notificación a ntfy.sh
       run: |
-        curl -d "🚨 Se hizo push a la rama main del repositorio con C# 🚀" \
+        curl -d "🚨 Se hizo push a la rama main del repositorio con C# Jose angel 2023-0954🚀" \
         -H "Title: Actualización en Main" \
         -H "Priority: 5" \
         https://ntfy.sh/devops-itla
